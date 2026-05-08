@@ -1,68 +1,122 @@
-import fs from 'fs';
-import path from 'path';
+import dbConnect from './mongoose';
+import Article from '../models/Article';
+import Category from '../models/Category';
+import BreakingNews from '../models/BreakingNews';
+import Ad from '../models/Ad';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
-
-const getFilePath = (fileName) => path.join(DATA_DIR, fileName);
-
-export const readData = (fileName) => {
+// General Helper for reading data (now uses MongoDB)
+export const readData = async (model) => {
+  await dbConnect();
   try {
-    const filePath = getFilePath(fileName);
-    if (!fs.existsSync(filePath)) {
-      return [];
-    }
-    const data = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(data);
+    return await model.find({}).lean();
   } catch (error) {
-    console.error(`Error reading ${fileName}:`, error);
+    console.error(`Error reading from ${model.modelName}:`, error);
     return [];
   }
 };
 
-export const writeData = (fileName, data) => {
+// General Helper for writing data (replaces or creates)
+export const writeData = async (model, data) => {
+  await dbConnect();
   try {
-    const filePath = getFilePath(fileName);
-    // Ensure the data directory exists
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
-    }
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    // If it's an array, we might want to refresh the whole collection or handle items.
+    // For simplicity, matching the old file system 'overwrite' behavior:
+    await model.deleteMany({});
+    await model.insertMany(data);
     return true;
   } catch (error) {
-    console.error(`Error writing ${fileName}:`, error);
+    console.error(`Error writing to ${model.modelName}:`, error);
     return false;
   }
 };
 
 // Helpers for specific collections
-export const getArticles = () => {
-  return readData('articles.json').sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+export const getArticles = async () => {
+  await dbConnect();
+  try {
+    return await Article.find({}).sort({ publishedAt: -1 }).lean();
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    return [];
+  }
 };
 
-export const saveArticles = (articles) => {
-  return writeData('articles.json', articles);
+export const saveArticles = async (articles) => {
+  await dbConnect();
+  try {
+    // Note: In a real app, you'd probably use updateOne or similar.
+    // But to maintain parity with the previous 'fs.writeFileSync' behavior:
+    await Article.deleteMany({});
+    await Article.insertMany(articles);
+    return true;
+  } catch (error) {
+    console.error("Error saving articles:", error);
+    return false;
+  }
 };
 
-export const getCategories = () => {
-  return readData('categories.json');
+export const getCategories = async () => {
+  await dbConnect();
+  try {
+    return await Category.find({}).lean();
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
 };
 
-export const saveCategories = (categories) => {
-  return writeData('categories.json', categories);
+export const saveCategories = async (categories) => {
+  await dbConnect();
+  try {
+    await Category.deleteMany({});
+    await Category.insertMany(categories);
+    return true;
+  } catch (error) {
+    console.error("Error saving categories:", error);
+    return false;
+  }
 };
 
-export const getBreakingNews = () => {
-  return readData('breaking.json');
+export const getBreakingNews = async () => {
+  await dbConnect();
+  try {
+    return await BreakingNews.find({}).lean();
+  } catch (error) {
+    console.error("Error fetching breaking news:", error);
+    return [];
+  }
 };
 
-export const saveBreakingNews = (news) => {
-  return writeData('breaking.json', news);
+export const saveBreakingNews = async (news) => {
+  await dbConnect();
+  try {
+    await BreakingNews.deleteMany({});
+    await BreakingNews.insertMany(news);
+    return true;
+  } catch (error) {
+    console.error("Error saving breaking news:", error);
+    return false;
+  }
 };
 
-export const getAds = () => {
-  return readData('ads.json');
+export const getAds = async () => {
+  await dbConnect();
+  try {
+    return await Ad.find({}).lean();
+  } catch (error) {
+    console.error("Error fetching ads:", error);
+    return [];
+  }
 };
 
-export const saveAds = (ads) => {
-  return writeData('ads.json', ads);
+export const saveAds = async (ads) => {
+  await dbConnect();
+  try {
+    await Ad.deleteMany({});
+    await Ad.insertMany(ads);
+    return true;
+  } catch (error) {
+    console.error("Error saving ads:", error);
+    return false;
+  }
 };

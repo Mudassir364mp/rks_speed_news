@@ -7,18 +7,23 @@ export async function GET(request) {
   const categoryId = searchParams.get('category');
   const isBreaking = searchParams.get('breaking');
 
-  let articles = await getArticles();
+  try {
+    let articles = await getArticles();
 
-  if (categoryId) {
-    articles = articles.filter(a => String(a.categoryId) === String(categoryId));
-  }
-  if (isBreaking === 'true') {
-    articles = articles.filter(a => a.isBreaking);
-  }
+    if (categoryId) {
+      articles = articles.filter(a => String(a.categoryId) === String(categoryId));
+    }
+    if (isBreaking === 'true') {
+      articles = articles.filter(a => a.isBreaking);
+    }
 
-  return Response.json(articles, {
-    headers: { 'Cache-Control': 'no-store' },
-  });
+    return Response.json(articles, {
+      headers: { 'Cache-Control': 'no-store' },
+    });
+  } catch (error) {
+    console.error('GET /api/articles error:', error);
+    return Response.json({ success: false, error: error.message }, { status: 500 });
+  }
 }
 
 export async function POST(request) {
@@ -26,16 +31,25 @@ export async function POST(request) {
     await dbConnect();
     const data = await request.json();
 
-    // ✅ Seedha MongoDB mein save — deleteMany/insertMany nahi
+    // ✅ SEEDHA MONGO MEIN SAVE — deleteMany nahi
     const newArticle = new Article({
-      ...data,
-      publishedAt: new Date(),
+      title: data.title || '',
+      slug: data.slug || '',
+      excerpt: data.excerpt || '',
+      content: data.content || '',
+      categoryId: data.categoryId || '',
+      author: data.author || '',
+      imageUrl: data.imageUrl || '',
+      isBreaking: data.isBreaking || false,
+      publishedAt: new Date(data.publishedAt || Date.now()),
       views: 0,
     });
 
-    await newArticle.save();
+    const saved = await newArticle.save();
 
-    return Response.json({ success: true, article: newArticle });
+    console.log('Article saved to MongoDB:', saved._id);
+
+    return Response.json({ success: true, article: saved });
   } catch (error) {
     console.error('POST /api/articles error:', error);
     return Response.json({ success: false, error: error.message }, { status: 500 });

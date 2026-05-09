@@ -1,41 +1,123 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+import dbConnect from './mongoose';
+import Article from '../models/Article';
+import Category from '../models/Category';
+import BreakingNews from '../models/BreakingNews';
+import Ad from '../models/Ad';
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+// Helpers for specific collections
+export const getArticles = async () => {
+  await dbConnect();
+  try {
+    return await Article.find({}).sort({ publishedAt: -1 }).lean();
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    return [];
+  }
+};
 
-# testing
-/coverage
+// ✅ FIXED — NO deleteMany
+export const saveArticles = async (articles) => {
+  await dbConnect();
+  try {
+    if (!Array.isArray(articles)) return false;
+    
+    for (const article of articles) {
+      await Article.findOneAndUpdate(
+        { slug: article.slug },
+        article,
+        { upsert: true, new: true }
+      );
+    }
+    return true;
+  } catch (error) {
+    console.error("Error saving articles:", error);
+    return false;
+  }
+};
 
-# next.js
-/.next/
-/out/
+export const getCategories = async () => {
+  await dbConnect();
+  try {
+    return await Category.find({}).lean();
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+};
 
-# production
-/build
+export const saveCategories = async (categories) => {
+  await dbConnect();
+  try {
+    if (!Array.isArray(categories)) return false;
 
-# misc
-.DS_Store
-*.pem
+    for (const cat of categories) {
+      await Category.findOneAndUpdate(
+        { slug: cat.slug },
+        cat,
+        { upsert: true, new: true }
+      );
+    }
+    return true;
+  } catch (error) {
+    console.error("Error saving categories:", error);
+    return false;
+  }
+};
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
+export const getBreakingNews = async () => {
+  await dbConnect();
+  try {
+    return await BreakingNews.find({}).lean();
+  } catch (error) {
+    console.error("Error fetching breaking news:", error);
+    return [];
+  }
+};
 
-# env files (can opt-in for committing if needed)
-.env*
+export const saveBreakingNews = async (news) => {
+  await dbConnect();
+  try {
+    if (!Array.isArray(news)) return false;
 
-# vercel
-.vercel
+    for (const item of news) {
+      await BreakingNews.findOneAndUpdate(
+        { _id: item._id || item.id },
+        item,
+        { upsert: true, new: true }
+      );
+    }
+    return true;
+  } catch (error) {
+    console.error("Error saving breaking news:", error);
+    return false;
+  }
+};
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+export const getAds = async () => {
+  await dbConnect();
+  try {
+    return await Ad.find({}).lean();
+  } catch (error) {
+    console.error("Error fetching ads:", error);
+    return [];
+  }
+};
+
+export const saveAds = async (ads) => {
+  await dbConnect();
+  try {
+    if (!Array.isArray(ads)) return false;
+
+    for (const ad of ads) {
+      await Ad.findOneAndUpdate(
+        { _id: ad._id || ad.id },
+        ad,
+        { upsert: true, new: true }
+      );
+    }
+    return true;
+  } catch (error) {
+    console.error("Error saving ads:", error);
+    return false;
+  }
+};

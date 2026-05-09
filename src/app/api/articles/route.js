@@ -1,11 +1,13 @@
-import { getArticles, saveArticles } from '@/lib/db';
+import dbConnect from '@/lib/mongoose';
+import Article from '@/models/Article';
+import { getArticles } from '@/lib/db';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const categoryId = searchParams.get('category');
   const isBreaking = searchParams.get('breaking');
 
-  let articles = await getArticles(); // ✅ await add kiya
+  let articles = await getArticles();
 
   if (categoryId) {
     articles = articles.filter(a => String(a.categoryId) === String(categoryId));
@@ -21,21 +23,21 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    await dbConnect();
     const data = await request.json();
-    const articles = await getArticles(); // ✅ await add kiya
 
-    const newArticle = {
+    // ✅ Seedha MongoDB mein save — deleteMany/insertMany nahi
+    const newArticle = new Article({
       ...data,
-      id: Date.now().toString(),
-      publishedAt: new Date().toISOString(),
-      views: 0
-    };
+      publishedAt: new Date(),
+      views: 0,
+    });
 
-    articles.push(newArticle);
-    await saveArticles(articles); // ✅ await add kiya
+    await newArticle.save();
 
     return Response.json({ success: true, article: newArticle });
   } catch (error) {
-    return Response.json({ success: false, error: 'Failed to save article' }, { status: 500 });
+    console.error('POST /api/articles error:', error);
+    return Response.json({ success: false, error: error.message }, { status: 500 });
   }
 }

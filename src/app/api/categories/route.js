@@ -1,8 +1,9 @@
-import { getCategories, saveCategories } from '@/lib/db';
+import dbConnect from '@/lib/mongoose';
+import Category from '@/models/Category';
+import { getCategories } from '@/lib/db';
 
 export async function GET() {
-  const categories = await getCategories(); // ✅ await add kiya
-
+  const categories = await getCategories();
   return Response.json(categories, {
     headers: { 'Cache-Control': 'no-store' },
   });
@@ -10,19 +11,24 @@ export async function GET() {
 
 export async function POST(request) {
   try {
+    await dbConnect();
     const data = await request.json();
-    const categories = await getCategories(); // ✅ await add kiya
 
-    const newCategory = {
-      ...data,
-      id: Date.now().toString(),
-    };
+    // Upsert — slug unique hai, agar exist kare to update karo warna create
+    const category = await Category.findOneAndUpdate(
+      { slug: data.slug },
+      {
+        name: data.name,
+        slug: data.slug,
+        color: data.color || '#ef4444',
+        id: data.id || Date.now().toString(),
+      },
+      { upsert: true, new: true }
+    );
 
-    categories.push(newCategory);
-    await saveCategories(categories); // ✅ await add kiya
-
-    return Response.json({ success: true, category: newCategory });
+    return Response.json({ success: true, category });
   } catch (error) {
-    return Response.json({ success: false, error: 'Failed to save category' }, { status: 500 });
+    console.error('POST /api/categories error:', error);
+    return Response.json({ success: false, error: error.message }, { status: 500 });
   }
 }

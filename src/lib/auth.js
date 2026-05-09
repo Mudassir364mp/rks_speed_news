@@ -1,10 +1,10 @@
 /**
  * lib/auth.js
- * Updated Client-side authentication facade for RKS Speed News Admin
- * Now interfaces with server-side API routes for improved security
+ * Client-side authentication facade for RKS Speed News Admin
+ * Interfaces with server-side API routes for security
  */
 
-const SESSION_KEY = 'rks_admin_user'; // Public user info (non-sensitive)
+const SESSION_KEY = 'rks_admin_user';
 
 export const ROLE_LABELS = {
     super_admin: 'Super Admin',
@@ -30,7 +30,11 @@ export const ROLE_PERMISSIONS = {
 // ─── Client Session Management ────────────────────────────────────────────────
 export const saveUser = (user) => {
     if (typeof window === 'undefined') return;
-    localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+    localStorage.setItem(SESSION_KEY, JSON.stringify({
+        ...user,
+        loginAt: new Date().toISOString(),
+        avatar: user.name ? user.name.charAt(0).toUpperCase() : 'A',
+    }));
 };
 
 export const getUser = () => {
@@ -39,13 +43,42 @@ export const getUser = () => {
     return raw ? JSON.parse(raw) : null;
 };
 
+// ✅ getSession alias — AdminGuard aur activity page use karta hai
+export const getSession = () => getUser();
+
 export const clearUser = () => {
     if (typeof window !== 'undefined') localStorage.removeItem(SESSION_KEY);
 };
 
 export const isAuthenticated = () => !!getUser();
 
-// ─── Login ─────────────────────────────────────────────────────────────────────
+// ─── Activity Log (localStorage based) ──────────────────────────────────────
+const ACTIVITY_KEY = 'rks_activity_logs';
+
+export const logActivity = (action, detail = '') => {
+    if (typeof window === 'undefined') return;
+    const user = getUser();
+    const logs = getActivityLogs();
+    const newLog = {
+        id: Date.now().toString(),
+        userId: user?.email || 'unknown',
+        action,
+        detail,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+    };
+    const updated = [newLog, ...logs].slice(0, 100); // max 100 logs
+    localStorage.setItem(ACTIVITY_KEY, JSON.stringify(updated));
+};
+
+// ✅ getActivityLogs — activity page use karta hai
+export const getActivityLogs = () => {
+    if (typeof window === 'undefined') return [];
+    const raw = localStorage.getItem(ACTIVITY_KEY);
+    return raw ? JSON.parse(raw) : [];
+};
+
+// ─── Login ────────────────────────────────────────────────────────────────────
 export const login = async (email, password, rememberMe = false) => {
     try {
         const response = await fetch('/api/admin/login', {
@@ -58,6 +91,7 @@ export const login = async (email, password, rememberMe = false) => {
 
         if (response.ok) {
             saveUser(data.user);
+            logActivity('LOGIN', `Logged in as ${email}`);
             return { success: true, user: data.user };
         } else {
             return { success: false, error: data.error || 'Login failed' };
@@ -67,8 +101,9 @@ export const login = async (email, password, rememberMe = false) => {
     }
 };
 
-// ─── Logout ────────────────────────────────────────────────────────────────────
+// ─── Logout ───────────────────────────────────────────────────────────────────
 export const logout = async () => {
+    logActivity('LOGOUT', 'User signed out');
     try {
         await fetch('/api/admin/logout', { method: 'POST' });
     } finally {
@@ -77,10 +112,24 @@ export const logout = async () => {
     }
 };
 
-// ─── Permission check ──────────────────────────────────────────────────────────
+// ─── Permission check ─────────────────────────────────────────────────────────
 export const hasPermission = (user, section) => {
     if (!user) return false;
     if (user.role === 'super_admin') return true;
     const allowed = ROLE_PERMISSIONS[user.role] || [];
     return allowed.includes(section);
+};
+
+// ─── Login attempts (brute force protection) ──────────────────────────────────
+export const getLoginAttempts = (email) => {
+    if (typeof window === 'undefined') return { count: 0, locked: false };
+    const raw = localStorage.getItem(`rks_attempts_${email}`);
+    if (!raw) return { count: 0, locked: false };
+    const data = JSON.parse(raw);
+    // Auto-unlock after 15 minutes
+    if (data.lockedAt && Date.now() - new Date(data.lockedAt).getTime() > 15 * 60 * 1000) {
+        localStorage.removeItem(`rks_attempts_${email}`);
+        return { count: 0, locked: false };
+    }
+    return data;
 };

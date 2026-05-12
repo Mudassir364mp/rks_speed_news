@@ -3,13 +3,14 @@ import mongoose from 'mongoose';
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+  throw new Error(
+    '❌ MONGODB_URI is not defined. Please add it to your .env.local (locally) or Vercel Environment Variables (production).'
+  );
 }
 
 /**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
+ * Global cache to prevent multiple connections during hot-reload in development
+ * and multiple instances in serverless (Vercel) functions.
  */
 let cached = global.mongoose;
 
@@ -23,12 +24,8 @@ async function dbConnect() {
   }
 
   if (!cached.promise) {
-    const opts = {
+    cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
-    };
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
     });
   }
 
@@ -36,6 +33,7 @@ async function dbConnect() {
     cached.conn = await cached.promise;
   } catch (e) {
     cached.promise = null;
+    console.error('❌ MongoDB connection failed:', e.message);
     throw e;
   }
 

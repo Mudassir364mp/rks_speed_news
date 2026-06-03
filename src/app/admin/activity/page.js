@@ -24,7 +24,7 @@ export default function ActivityLogPage() {
         <div>
             <div style={{ marginBottom: '2rem' }}>
                 <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#111827' }}>Activity Log</h1>
-                <p style={{ color: '#6b7280', marginTop: '0.25rem' }}>Security audit trail — last 100 events.</p>
+                <p style={{ color: '#6b7280', marginTop: '0.25rem' }}>Security audit trail â€” last 100 events.</p>
             </div>
 
             <div style={{ backgroundColor: 'white', borderRadius: '0.875rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
@@ -58,7 +58,7 @@ export default function ActivityLogPage() {
                                             </span>
                                         </td>
                                         <td style={{ padding: '0.875rem 1rem', color: '#6b7280', maxWidth: '240px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                            {log.detail || '—'}
+                                            {log.detail || 'â€”'}
                                         </td>
                                         <td style={{ padding: '0.875rem 1rem', color: '#9ca3af', fontSize: '0.75rem', maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                                             {log.userAgent}
@@ -73,3 +73,4 @@ export default function ActivityLogPage() {
         </div>
     );
 }
+

@@ -23,7 +23,7 @@ export async function PUT(request) {
       return Response.json({ success: false, error: 'Expected array of breaking news' }, { status: 400 });
     }
 
-    // ✅ SEEDHA UPSERT करो
+    // âœ… SEEDHA UPSERT à¤•à¤°à¥‹
     for (const item of data) {
       await BreakingNews.findOneAndUpdate(
         { _id: item._id || item.id },

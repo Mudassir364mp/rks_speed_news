@@ -49,7 +49,7 @@ export default function CategoryPage() {
       ) : (
         <div className="grid grid-cols-3" style={{ gap: '2rem' }}>
           {articles.map(article => (
-            <div key={article.id} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div key={article._id || article.id} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <Link href={`/article/${article.slug}`}>
                 <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
                   <img src={article.imageUrl} alt={article.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }} 

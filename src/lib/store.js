@@ -76,3 +76,4 @@ export const adStore = {
   getByPosition: (position) => getItems('rks_ads').filter(ad => ad.position === position && ad.active),
   updateAll: (items) => setItem('rks_ads', items),
 };
+

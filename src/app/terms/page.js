@@ -3,7 +3,7 @@
 export default function TermsPage() {
   const sections = [
     { title: '1. Acceptance of Terms', content: 'By accessing or using RKS Speed News, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you may not access the website.' },
-    { title: '2. Use of Content', content: 'All content published on RKS Speed News — including articles, images, videos, and graphics — is the intellectual property of RKS Speed News or its licensors. Content may not be reproduced, distributed, or republished without prior written permission.' },
+    { title: '2. Use of Content', content: 'All content published on RKS Speed News â€” including articles, images, videos, and graphics â€” is the intellectual property of RKS Speed News or its licensors. Content may not be reproduced, distributed, or republished without prior written permission.' },
     { title: '3. User Conduct', content: 'You agree not to engage in any conduct that restricts or inhibits any other user from using or enjoying the site. You may not transmit any unlawful, threatening, abusive, or defamatory content.' },
     { title: '4. Comments Policy', content: 'User-generated comments are the sole responsibility of the commenter. RKS Speed News reserves the right to remove any comments it deems inappropriate, offensive, or in violation of these terms.' },
     { title: '5. Disclaimer of Warranties', content: 'The site is provided on an "as is" basis without warranties of any kind. RKS Speed News does not warrant that the site will be uninterrupted, error-free, or free of viruses or other harmful components.' },
@@ -30,3 +30,4 @@ export default function TermsPage() {
     </div>
   );
 }
+

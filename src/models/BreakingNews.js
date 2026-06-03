@@ -7,3 +7,4 @@ const BreakingNewsSchema = new mongoose.Schema({
 });
 
 export default mongoose.models.BreakingNews || mongoose.model('BreakingNews', BreakingNewsSchema);
+

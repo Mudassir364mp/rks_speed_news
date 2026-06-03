@@ -4,7 +4,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
   throw new Error(
-    '❌ MONGODB_URI is not defined. Please add it to your .env.local (locally) or Vercel Environment Variables (production).'
+    'âŒ MONGODB_URI is not defined. Please add it to your .env.local (locally) or Vercel Environment Variables (production).'
   );
 }
 
@@ -33,7 +33,7 @@ async function dbConnect() {
     cached.conn = await cached.promise;
   } catch (e) {
     cached.promise = null;
-    console.error('❌ MongoDB connection failed:', e.message);
+    console.error('âŒ MongoDB connection failed:', e.message);
     throw e;
   }
 
@@ -41,3 +41,4 @@ async function dbConnect() {
 }
 
 export default dbConnect;
+

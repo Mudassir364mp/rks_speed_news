@@ -31,7 +31,7 @@ export async function POST(request) {
     await dbConnect();
     const data = await request.json();
 
-    // ✅ SEEDHA MONGO MEIN SAVE — deleteMany nahi
+    // âœ… SEEDHA MONGO MEIN SAVE â€” deleteMany nahi
     const newArticle = new Article({
       title: data.title || '',
       slug: data.slug || '',

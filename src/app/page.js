@@ -74,7 +74,7 @@ export default function Home() {
           <h3 style={{ fontSize: '1.5rem', fontWeight: 800, borderBottom: '2px solid var(--color-primary)', paddingBottom: '0.5rem', display: 'inline-block' }}>Latest Updates</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {sideArticles.map(article => (
-              <div key={article.id} style={{ display: 'flex', gap: '1rem' }}>
+              <div key={article._id || article.id} style={{ display: 'flex', gap: '1rem' }}>
                 <div style={{ width: '120px', height: '80px', flexShrink: 0, borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
                   <img src={article.imageUrl || null} alt={article.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
@@ -112,3 +112,5 @@ export default function Home() {
     </div>
   );
 }
+
+

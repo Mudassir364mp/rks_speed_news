@@ -4,7 +4,7 @@ const ArticleSchema = new mongoose.Schema({
   title: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
   excerpt: { type: String, default: '' },
-  content: { type: String, default: '' },  // ✅ required hata diya — editor se content late waqt empty aa sakta tha
+  content: { type: String, default: '' },  // âœ… required hata diya â€” editor se content late waqt empty aa sakta tha
   categoryId: { type: String, default: '' },
   author: { type: String, default: '' },
   imageUrl: { type: String, default: '' },

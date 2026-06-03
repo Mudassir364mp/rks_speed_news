@@ -14,7 +14,7 @@ export async function POST(request) {
     await dbConnect();
     const data = await request.json();
 
-    // Upsert — slug unique hai, agar exist kare to update karo warna create
+    // Upsert â€” slug unique hai, agar exist kare to update karo warna create
     const category = await Category.findOneAndUpdate(
       { slug: data.slug },
       {

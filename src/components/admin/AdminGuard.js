@@ -29,7 +29,7 @@ function LoadingScreen() {
         <div style={{ minHeight: '100vh', backgroundColor: '#050a14', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ textAlign: 'center' }}>
                 <div style={{ width: '40px', height: '40px', border: '3px solid rgba(239,68,68,0.2)', borderTopColor: '#ef4444', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 1rem' }} />
-                <p style={{ color: '#475569', fontSize: '0.875rem' }}>Verifying session…</p>
+                <p style={{ color: '#475569', fontSize: '0.875rem' }}>Verifying sessionâ€¦</p>
                 <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
             </div>
         </div>
@@ -85,7 +85,7 @@ export default function AdminGuard({ children }) {
     return (
         <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#f1f5f9', fontFamily: 'Inter, -apple-system, sans-serif' }}>
 
-            {/* ── Sidebar ─────────────────────────────────────────────────────────── */}
+            {/* â”€â”€ Sidebar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <aside style={{ width: '268px', backgroundColor: '#0d1117', color: 'white', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
 
                 {/* Brand */}
@@ -146,7 +146,7 @@ export default function AdminGuard({ children }) {
                 {/* Bottom actions */}
                 <div style={{ padding: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.07)', display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
                     <Link href="/" target="_blank" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.6rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '0.5rem', color: '#94a3b8', fontSize: '0.8125rem', fontWeight: 600 }}>
-                        View Live Site ↗
+                        View Live Site â†—
                     </Link>
                     <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.6rem', backgroundColor: 'rgba(239,68,68,0.08)', borderRadius: '0.5rem', color: '#f87171', fontSize: '0.8125rem', fontWeight: 600, width: '100%', cursor: 'pointer' }}>
                         <LogOut size={16} />
@@ -155,7 +155,7 @@ export default function AdminGuard({ children }) {
                 </div>
             </aside>
 
-            {/* ── Main ────────────────────────────────────────────────────────────── */}
+            {/* â”€â”€ Main â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
 
                 {/* Top Bar */}
@@ -182,3 +182,4 @@ export default function AdminGuard({ children }) {
         </div>
     );
 }
+

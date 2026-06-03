@@ -3,10 +3,10 @@ import Link from 'next/link';
 
 export default function AdvertisePage() {
   const packages = [
-    { name: 'Standard Banner', position: 'Header / Footer', size: '728×90 px', price: '₹5,000/mo', impressions: '~50K' },
-    { name: 'Sidebar Widget', position: 'Article Sidebar', size: '300×250 px', price: '₹3,500/mo', impressions: '~35K' },
-    { name: 'In-Article Ad', position: 'Mid-Article Placement', size: '600×200 px', price: '₹4,000/mo', impressions: '~40K' },
-    { name: 'Sponsored Article', position: 'Marked as Sponsored', size: 'Full Article', price: '₹12,000/mo', impressions: '~100K' },
+    { name: 'Standard Banner', position: 'Header / Footer', size: '728Ã—90 px', price: 'â‚¹5,000/mo', impressions: '~50K' },
+    { name: 'Sidebar Widget', position: 'Article Sidebar', size: '300Ã—250 px', price: 'â‚¹3,500/mo', impressions: '~35K' },
+    { name: 'In-Article Ad', position: 'Mid-Article Placement', size: '600Ã—200 px', price: 'â‚¹4,000/mo', impressions: '~40K' },
+    { name: 'Sponsored Article', position: 'Marked as Sponsored', size: 'Full Article', price: 'â‚¹12,000/mo', impressions: '~100K' },
   ];
 
   return (
@@ -54,3 +54,4 @@ export default function AdvertisePage() {
     </div>
   );
 }
+

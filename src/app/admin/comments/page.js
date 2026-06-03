@@ -66,7 +66,7 @@ export default function AdminComments() {
                 </div>
               </div>
               <p style={{ color: '#374151', marginBottom: '0.5rem' }}>{comment.message}</p>
-              <p style={{ fontSize: '0.75rem', color: '#9ca3af' }}>On: <em>{comment.articleTitle}</em> — {new Date(comment.date).toLocaleString()}</p>
+              <p style={{ fontSize: '0.75rem', color: '#9ca3af' }}>On: <em>{comment.articleTitle}</em> â€” {new Date(comment.date).toLocaleString()}</p>
             </div>
           ))}
         </div>
@@ -74,3 +74,4 @@ export default function AdminComments() {
     </div>
   );
 }
+

@@ -15,7 +15,7 @@ export const getArticles = async () => {
   }
 };
 
-// ✅ FIXED — NO deleteMany
+// âœ… FIXED â€” NO deleteMany
 export const saveArticles = async (articles) => {
   await dbConnect();
   try {
@@ -25,7 +25,7 @@ export const saveArticles = async (articles) => {
       await Article.findOneAndUpdate(
         { slug: article.slug },
         article,
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: "after" }
       );
     }
     return true;
@@ -54,7 +54,7 @@ export const saveCategories = async (categories) => {
       await Category.findOneAndUpdate(
         { slug: cat.slug },
         cat,
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: "after" }
       );
     }
     return true;
@@ -81,9 +81,9 @@ export const saveBreakingNews = async (news) => {
 
     for (const item of news) {
       await BreakingNews.findOneAndUpdate(
-        { _id: item._id || item.id },
+        { slug: item.slug || item.id },
         item,
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: "after" }
       );
     }
     return true;
@@ -110,9 +110,9 @@ export const saveAds = async (ads) => {
 
     for (const ad of ads) {
       await Ad.findOneAndUpdate(
-        { _id: ad._id || ad.id },
+        { position: ad.position || ad.id },
         ad,
-        { upsert: true, new: true }
+        { upsert: true, returnDocument: "after" }
       );
     }
     return true;
@@ -121,3 +121,6 @@ export const saveAds = async (ads) => {
     return false;
   }
 };
+
+
+

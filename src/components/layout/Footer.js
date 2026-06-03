@@ -33,7 +33,7 @@ export default function Footer() {
           </div>
           {subscribed ? (
             <div style={{ backgroundColor: 'rgba(255,255,255,0.2)', padding: '1rem 2rem', borderRadius: 'var(--radius-md)', fontWeight: 600 }}>
-              ✓ Thank you for subscribing!
+              âœ“ Thank you for subscribing!
             </div>
           ) : (
             <form onSubmit={handleSubscribe} className="newsletter-form">
@@ -113,3 +113,4 @@ export default function Footer() {
     </footer>
   );
 }
+

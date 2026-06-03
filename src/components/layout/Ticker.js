@@ -33,7 +33,7 @@ export default function Ticker() {
           {news.map(item => (
             <div key={item.id} style={{ display: 'inline-block' }}>
               <Link href={item.link} className="hover:underline">
-                <span style={{ marginRight: '0.5rem', color: '#fcd34d' }}>●</span>
+                <span style={{ marginRight: '0.5rem', color: '#fcd34d' }}>â—</span>
                 {item.text}
               </Link>
             </div>
@@ -43,3 +43,4 @@ export default function Ticker() {
     </div>
   );
 }
+

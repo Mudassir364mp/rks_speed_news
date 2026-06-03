@@ -44,7 +44,7 @@ export default function AdminSEO() {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#111827' }}>SEO Settings</h1>
-        {saved && <div style={{ backgroundColor: '#dcfce7', color: '#166534', padding: '0.5rem 1rem', borderRadius: '0.375rem', fontWeight: 600 }}>✓ Saved!</div>}
+        {saved && <div style={{ backgroundColor: '#dcfce7', color: '#166534', padding: '0.5rem 1rem', borderRadius: '0.375rem', fontWeight: 600 }}>âœ“ Saved!</div>}
       </div>
 
       <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -87,3 +87,4 @@ export default function AdminSEO() {
     </div>
   );
 }
+

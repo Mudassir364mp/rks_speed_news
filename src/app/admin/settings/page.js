@@ -47,7 +47,7 @@ export default function AdminSettings() {
         <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#111827' }}>General Settings</h1>
         {saved && (
           <div style={{ backgroundColor: '#dcfce7', color: '#166534', padding: '0.5rem 1rem', borderRadius: '0.375rem', fontWeight: 600 }}>
-            ✓ Settings saved!
+            âœ“ Settings saved!
           </div>
         )}
       </div>
@@ -97,3 +97,4 @@ export default function AdminSettings() {
     </div>
   );
 }
+

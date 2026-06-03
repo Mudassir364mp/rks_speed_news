@@ -75,7 +75,7 @@ export default function PhotoGalleryPage() {
               </div>
               <button onClick={() => setLightbox(null)}
                 style={{ color: 'white', fontSize: '2rem', lineHeight: 1, backgroundColor: 'rgba(255,255,255,0.1)', width: '44px', height: '44px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                ✕
+                âœ•
               </button>
             </div>
           </div>
@@ -84,3 +84,4 @@ export default function PhotoGalleryPage() {
     </div>
   );
 }
+

@@ -27,7 +27,7 @@ export const ROLE_PERMISSIONS = {
     content_manager: ['dashboard', 'articles', 'categories', 'breaking-news'],
 };
 
-// ─── Client Session Management ────────────────────────────────────────────────
+// â”€â”€â”€ Client Session Management â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const saveUser = (user) => {
     if (typeof window === 'undefined') return;
     localStorage.setItem(SESSION_KEY, JSON.stringify({
@@ -43,7 +43,7 @@ export const getUser = () => {
     return raw ? JSON.parse(raw) : null;
 };
 
-// ✅ getSession alias — AdminGuard aur activity page use karta hai
+// âœ… getSession alias â€” AdminGuard aur activity page use karta hai
 export const getSession = () => getUser();
 
 export const clearUser = () => {
@@ -52,7 +52,7 @@ export const clearUser = () => {
 
 export const isAuthenticated = () => !!getUser();
 
-// ─── Activity Log (localStorage based) ──────────────────────────────────────
+// â”€â”€â”€ Activity Log (localStorage based) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const ACTIVITY_KEY = 'rks_activity_logs';
 
 export const logActivity = (action, detail = '') => {
@@ -71,14 +71,14 @@ export const logActivity = (action, detail = '') => {
     localStorage.setItem(ACTIVITY_KEY, JSON.stringify(updated));
 };
 
-// ✅ getActivityLogs — activity page use karta hai
+// âœ… getActivityLogs â€” activity page use karta hai
 export const getActivityLogs = () => {
     if (typeof window === 'undefined') return [];
     const raw = localStorage.getItem(ACTIVITY_KEY);
     return raw ? JSON.parse(raw) : [];
 };
 
-// ─── Login ────────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Login â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const login = async (email, password, rememberMe = false) => {
     try {
         const response = await fetch('/api/admin/login', {
@@ -101,7 +101,7 @@ export const login = async (email, password, rememberMe = false) => {
     }
 };
 
-// ─── Logout ───────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Logout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const logout = async () => {
     logActivity('LOGOUT', 'User signed out');
     try {
@@ -112,7 +112,7 @@ export const logout = async () => {
     }
 };
 
-// ─── Permission check ─────────────────────────────────────────────────────────
+// â”€â”€â”€ Permission check â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const hasPermission = (user, section) => {
     if (!user) return false;
     if (user.role === 'super_admin') return true;
@@ -120,7 +120,7 @@ export const hasPermission = (user, section) => {
     return allowed.includes(section);
 };
 
-// ─── Login attempts (brute force protection) ──────────────────────────────────
+// â”€â”€â”€ Login attempts (brute force protection) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const getLoginAttempts = (email) => {
     if (typeof window === 'undefined') return { count: 0, locked: false };
     const raw = localStorage.getItem(`rks_attempts_${email}`);

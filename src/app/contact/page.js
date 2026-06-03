@@ -17,7 +17,7 @@ export default function ContactPage() {
         <span className="badge" style={{ marginBottom: '1rem', display: 'inline-block' }}>Contact</span>
         <h1 className="heading-serif" style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1rem' }}>Get In Touch</h1>
         <p style={{ fontSize: '1.125rem', color: 'var(--color-text-muted)', maxWidth: '600px', margin: '0 auto' }}>
-          For news tips, press inquiries, advertising, or general feedback — we'd love to hear from you.
+          For news tips, press inquiries, advertising, or general feedback â€” we'd love to hear from you.
         </p>
       </div>
 
@@ -25,10 +25,10 @@ export default function ContactPage() {
         {/* Contact Info */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {[
-            { label: 'Editorial Office', value: 'editorial@rksspeed.news', icon: '✉' },
-            { label: 'Advertising', value: 'ads@rksspeed.news', icon: '📢' },
-            { label: 'Press & Media', value: 'press@rksspeed.news', icon: '📰' },
-            { label: 'Support', value: '+91 80000 12345', icon: '📞' },
+            { label: 'Editorial Office', value: 'editorial@rksspeed.news', icon: 'âœ‰' },
+            { label: 'Advertising', value: 'ads@rksspeed.news', icon: 'ðŸ“¢' },
+            { label: 'Press & Media', value: 'press@rksspeed.news', icon: 'ðŸ“°' },
+            { label: 'Support', value: '+91 80000 12345', icon: 'ðŸ“ž' },
           ].map(item => (
             <div key={item.label} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
               <div style={{ fontSize: '1.5rem', lineHeight: 1 }}>{item.icon}</div>
@@ -44,7 +44,7 @@ export default function ContactPage() {
         {submitted ? (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--color-bg-alt)', borderRadius: 'var(--radius-lg)', padding: '4rem', textAlign: 'center' }}>
             <div>
-              <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>✓</div>
+              <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>âœ“</div>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.75rem' }}>Message Sent!</h3>
               <p style={{ color: 'var(--color-text-muted)' }}>Thank you for reaching out. Our team will get back to you within 24 hours.</p>
             </div>
@@ -89,3 +89,4 @@ export default function ContactPage() {
     </div>
   );
 }
+

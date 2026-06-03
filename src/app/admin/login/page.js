@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { login, getSession, getLoginAttempts } from '@/lib/auth';
@@ -13,8 +13,8 @@ export default function AdminLoginPage() {
   const [attempts, setAttempts] = useState({ count: 0, locked: false });
 
   useEffect(() => {
-    // Already logged in → straight to dashboard
-    if (getSession()) router.replace('/admin');
+    // Already logged in Ã¢â€ â€™ straight to dashboard
+    if (getSession()) window.location.href = '/admin';
   }, []);
 
   const refreshAttempts = (email) => {
@@ -30,12 +30,13 @@ export default function AdminLoginPage() {
       // Intentional 600ms delay to simulate server round-trip
       await new Promise(res => setTimeout(res, 600));
 
-      const result = login(form.email, form.password, form.rememberMe);
+      const result = await login(form.email, form.password, form.rememberMe);
 
+      console.log("Login result:", result);
       if (result.success) {
         setSuccess(true);
         // Keep loading true so the spinner continues while navigating
-        router.replace('/admin');
+        window.location.href = '/admin';
       } else {
         setError(result.error);
         refreshAttempts(form.email);
@@ -108,7 +109,7 @@ export default function AdminLoginPage() {
               gap: '0.5rem',
               alignItems: 'flex-start',
             }}>
-              <span style={{ flexShrink: 0 }}>⚠</span>
+              <span style={{ flexShrink: 0 }}>Ã¢Å¡Â </span>
               <span>{error}</span>
             </div>
           )}
@@ -127,7 +128,7 @@ export default function AdminLoginPage() {
               gap: '0.5rem',
               alignItems: 'flex-start',
             }}>
-              <span style={{ flexShrink: 0 }}>✓</span>
+              <span style={{ flexShrink: 0 }}>Ã¢Å“â€œ</span>
               <span>Authentication successful! Redirecting to dashboard...</span>
             </div>
           )}
@@ -143,7 +144,7 @@ export default function AdminLoginPage() {
               marginBottom: '1.5rem',
               fontSize: '0.8125rem',
             }}>
-              ⚡ {remainingAttempts} attempt{remainingAttempts === 1 ? '' : 's'} remaining before lockout.
+              Ã¢Å¡Â¡ {remainingAttempts} attempt{remainingAttempts === 1 ? '' : 's'} remaining before lockout.
             </div>
           )}
 
@@ -190,7 +191,7 @@ export default function AdminLoginPage() {
                   onChange={e => setForm({ ...form, password: e.target.value })}
                   required
                   disabled={loading || attempts.locked}
-                  placeholder="••••••••••••"
+                  placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢"
                   style={{
                     width: '100%',
                     padding: '0.875rem 3rem 0.875rem 1rem',
@@ -256,7 +257,7 @@ export default function AdminLoginPage() {
                   <span style={{ display: 'inline-block', width: '16px', height: '16px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: 'white', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
                   {success ? 'Redirecting...' : 'Verifying credentials...'}
                 </span>
-              ) : attempts.locked ? '🔒 Account Temporarily Locked' : 'Sign In to Admin Panel'}
+              ) : attempts.locked ? 'Ã°Å¸â€â€™ Account Temporarily Locked' : 'Sign In to Admin Panel'}
             </button>
           </form>
 
@@ -299,3 +300,7 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+
+
+
+

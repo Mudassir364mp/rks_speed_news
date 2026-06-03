@@ -17,7 +17,7 @@ const JoditEditor = dynamic(() => import('jodit-react'), {
 export default function NewArticlePage() {
   const router = useRouter();
   const editor = useRef(null);
-  const contentRef = useRef(''); // ✅ content ko ref mein rakho — blur issue fix
+  const contentRef = useRef(''); // âœ… content ko ref mein rakho â€” blur issue fix
   const [categories, setCategories] = useState([]);
   const [form, setForm] = useState({
     title: '',
@@ -37,7 +37,7 @@ export default function NewArticlePage() {
         const cats = await res.json();
         if (Array.isArray(cats) && cats.length > 0) {
           setCategories(cats);
-          // ✅ MongoDB _id ya custom id — dono handle karo
+          // âœ… MongoDB _id ya custom id â€” dono handle karo
           const firstId = cats[0]._id || cats[0].id || '';
           setForm(f => ({ ...f, categoryId: String(firstId) }));
         }
@@ -74,7 +74,7 @@ export default function NewArticlePage() {
     e.preventDefault();
     setSaving(true);
 
-    // ✅ Content ref se lo
+    // âœ… Content ref se lo
     const content = contentRef.current;
 
     if (!form.title.trim()) {
@@ -205,7 +205,7 @@ export default function NewArticlePage() {
               value={contentRef.current}
               config={config}
               tabIndex={1}
-              onChange={newContent => { contentRef.current = newContent; }} // ✅ onChange use karo
+              onChange={newContent => { contentRef.current = newContent; }} // âœ… onChange use karo
             />
           </div>
         </div>
@@ -282,7 +282,7 @@ export default function NewArticlePage() {
             disabled={saving}
             style={{ width: '100%', padding: '0.875rem', backgroundColor: '#ef4444', color: 'white', borderRadius: '0.5rem', fontWeight: 700, fontSize: '1rem', cursor: saving ? 'not-allowed' : 'pointer', opacity: saving ? 0.7 : 1 }}
           >
-            {saving ? 'Publishing...' : '🚀 Publish Article'}
+            {saving ? 'Publishing...' : 'ðŸš€ Publish Article'}
           </button>
         </div>
       </div>

@@ -28,7 +28,7 @@ export default function CareersPage() {
               <h3 style={{ fontSize: '1.125rem', fontWeight: 700, marginBottom: '0.25rem' }}>{job.title}</h3>
               <div style={{ display: 'flex', gap: '1rem', fontSize: '0.875rem', color: 'var(--color-text-muted)' }}>
                 <span>{job.department}</span>
-                <span>•</span>
+                <span>â€¢</span>
                 <span>{job.location}</span>
               </div>
             </div>
@@ -50,3 +50,4 @@ export default function CareersPage() {
     </div>
   );
 }
+

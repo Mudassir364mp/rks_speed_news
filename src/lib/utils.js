@@ -1,4 +1,4 @@
-// lib/utils.js
+﻿// lib/utils.js
 
 export function clsx(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -23,14 +23,22 @@ export function formatRelativeTime(dateString) {
 }
 
 export function generateSlug(string) {
-  return string
-    .toString()
+  const trimmed = string.toString().trim();
+  // Try English slug first
+  const englishSlug = trimmed
     .toLowerCase()
-    .trim()
-    .replace(/\s+/g, '-')       // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')   // Remove all non-word chars
-    .replace(/\-\-+/g, '-')     // Replace multiple - with single -
-    .replace(/^-+/, '')         // Trim - from start of text
-    .replace(/-+$/, '');        // Trim - from end of text
+    .replace(/\s+/g, "-")
+    .replace(/[^\w\-]+/g, "")
+    .replace(/\-\-+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");
+  // If slug is empty (non-English like Marathi/Hindi), use timestamp-based slug
+  if (!englishSlug) {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).slice(2, 7);
+    return `article-${timestamp}-${random}`;
+  }
+  return englishSlug;
 }
+
 

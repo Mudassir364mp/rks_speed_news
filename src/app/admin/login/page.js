@@ -14,7 +14,7 @@ export default function AdminLoginPage() {
 
   useEffect(() => {
     // Already logged in Ã¢â€ â€™ straight to dashboard
-    if (getSession()) window.location.href = '/admin';
+    if (getSession()) setTimeout(() => { window.location.href = '/admin'; }, 500);
   }, []);
 
   const refreshAttempts = (email) => {
@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
       if (result.success) {
         setSuccess(true);
         // Keep loading true so the spinner continues while navigating
-        window.location.href = '/admin';
+        setTimeout(() => { window.location.href = '/admin'; }, 500);
       } else {
         setError(result.error);
         refreshAttempts(form.email);
@@ -300,6 +300,7 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+
 
 
 

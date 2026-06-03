@@ -1,4 +1,5 @@
-'use client';
+﻿'use client';
+import { useRef } from 'react';
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { generateSlug } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
@@ -17,8 +18,10 @@ const JoditEditor = dynamic(() => import('jodit-react'), {
 export default function NewArticlePage() {
   const router = useRouter();
   const editor = useRef(null);
-  const contentRef = useRef(''); // âœ… content ko ref mein rakho â€” blur issue fix
+  const contentRef = useRef(''); // Ã¢Å“â€¦ content ko ref mein rakho Ã¢â‚¬â€ blur issue fix
   const [categories, setCategories] = useState([]);
+  const fileInputRef = useRef(null);
+  const [imageUploading, setImageUploading] = useState(false);
   const [form, setForm] = useState({
     title: '',
     excerpt: '',
@@ -37,7 +40,7 @@ export default function NewArticlePage() {
         const cats = await res.json();
         if (Array.isArray(cats) && cats.length > 0) {
           setCategories(cats);
-          // âœ… MongoDB _id ya custom id â€” dono handle karo
+          // Ã¢Å“â€¦ MongoDB _id ya custom id Ã¢â‚¬â€ dono handle karo
           const firstId = cats[0]._id || cats[0].id || '';
           setForm(f => ({ ...f, categoryId: String(firstId) }));
         }
@@ -70,11 +73,31 @@ export default function NewArticlePage() {
     setTimeout(() => setToast(null), 5000);
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setImageUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success) {
+        setForm(prev => ({ ...prev, imageUrl: data.url }));
+      } else {
+        alert(data.error || "Upload failed");
+      }
+    } catch (err) {
+      alert("Upload failed");
+    }
+    setImageUploading(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
 
-    // âœ… Content ref se lo
+    // Ã¢Å“â€¦ Content ref se lo
     const content = contentRef.current;
 
     if (!form.title.trim()) {
@@ -205,7 +228,7 @@ export default function NewArticlePage() {
               value={contentRef.current}
               config={config}
               tabIndex={1}
-              onChange={newContent => { contentRef.current = newContent; }} // âœ… onChange use karo
+              onChange={newContent => { contentRef.current = newContent; }} // Ã¢Å“â€¦ onChange use karo
             />
           </div>
         </div>
@@ -261,7 +284,12 @@ export default function NewArticlePage() {
           {/* Image */}
           <div style={{ backgroundColor: 'white', borderRadius: '0.75rem', padding: '1.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
             <h3 style={{ fontWeight: 700, marginBottom: '1rem', color: '#111827', borderBottom: '1px solid #e5e7eb', paddingBottom: '0.5rem' }}>Featured Image</h3>
-            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#374151', marginBottom: '0.375rem' }}>Image URL</label>
+            <label style={{ display: "block", fontSize: "0.875rem", fontWeight: 600, color: "#374151", marginBottom: "0.375rem" }}>Featured Image</label>
+            <input type="file" accept="image/*" ref={fileInputRef} onChange={handleImageUpload} style={{ display: "none" }} />
+            <button type="button" onClick={() => fileInputRef.current.click()} disabled={imageUploading} style={{ width: "100%", padding: "0.75rem", marginBottom: "0.75rem", backgroundColor: imageUploading ? "#9ca3af" : "#ef4444", color: "white", border: "none", borderRadius: "0.5rem", fontWeight: 600, cursor: imageUploading ? "not-allowed" : "pointer", fontSize: "0.875rem" }}>
+              {imageUploading ? "Uploading..." : "Upload Image"}
+            </button>
+            <label style={{ display: "block", fontSize: "0.875rem", fontWeight: 600, color: "#374151", marginBottom: "0.375rem" }}>Or paste Image URL</label>
             <input
               type="url"
               value={form.imageUrl}
@@ -282,10 +310,14 @@ export default function NewArticlePage() {
             disabled={saving}
             style={{ width: '100%', padding: '0.875rem', backgroundColor: '#ef4444', color: 'white', borderRadius: '0.5rem', fontWeight: 700, fontSize: '1rem', cursor: saving ? 'not-allowed' : 'pointer', opacity: saving ? 0.7 : 1 }}
           >
-            {saving ? 'Publishing...' : 'ðŸš€ Publish Article'}
+            {saving ? 'Publishing...' : 'Ã°Å¸Å¡â‚¬ Publish Article'}
           </button>
         </div>
       </div>
     </div>
   );
 }
+
+
+
+

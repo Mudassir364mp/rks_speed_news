@@ -8,6 +8,7 @@ const secret = new TextEncoder().encode(
 // Public GET routes Ã¢â‚¬â€ koi bhi read kar sakta hai
 const PUBLIC_GET_ROUTES = [
   '/api/articles',
+  '/api/upload',
   '/api/breaking',
   '/api/categories',
   '/api/ads',
@@ -56,5 +57,6 @@ export async function middleware(request) {
 export const config = {
   matcher: ['/api/:path*'],
 };
+
 
 

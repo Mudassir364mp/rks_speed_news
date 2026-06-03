@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { encrypt } from '@/lib/session';
 
@@ -78,8 +78,8 @@ export async function POST(request) {
 
     response.cookies.set('rks_admin_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'none',
       expires: expires,
       path: '/'
     });
@@ -91,4 +91,5 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
 

@@ -138,10 +138,13 @@ export default function ArticlePage() {
       if (!slug) return;
       try {
         const viewedKey = `viewed_${slug}`;
-        const alreadyViewed = sessionStorage.getItem(viewedKey);
-        const viewParam = alreadyViewed ? "" : "?view=1";
+        const lastViewed = localStorage.getItem(viewedKey);
+        const now = Date.now();
+        const twentyFourHours = 24 * 60 * 60 * 1000;
+        const shouldCount = !lastViewed || (now - parseInt(lastViewed)) > twentyFourHours;
+        const viewParam = shouldCount ? "?view=1" : "";
         const res = await fetch(`/api/articles/${slug}${viewParam}`);
-        if (!alreadyViewed) sessionStorage.setItem(viewedKey, "1");
+        if (shouldCount) localStorage.setItem(viewedKey, now.toString());
         if (!res.ok) throw new Error('Not found');
         const art = await res.json();
         

@@ -34,12 +34,10 @@ export default function AdminArticles() {
     if (!confirm('Are you sure you want to delete this article?')) return;
 
     try {
-            const token = document.cookie.split('token=')[1]?.split(';')[0];
+            
       const res = await fetch(`/api/articles/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+        credentials: 'include'
       });
       if (res.ok) {
         setArticles(prev => prev.filter(a => (a._id || a.id) !== id));
@@ -124,5 +122,8 @@ export default function AdminArticles() {
     </div>
   );
 }
+
+
+
 
 

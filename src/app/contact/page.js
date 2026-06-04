@@ -28,7 +28,7 @@ export default function ContactPage() {
             { label: 'Editorial Office', value: 'editorial@rksspeed.news', icon: 'âœ‰' },
             { label: 'Advertising', value: 'ads@rksspeed.news', icon: 'ðŸ“¢' },
             { label: 'Press & Media', value: 'press@rksspeed.news', icon: 'ðŸ“°' },
-            { label: 'Support', value: '+91 80000 12345', icon: 'ðŸ“ž' },
+            { label: 'Support', value: '+91 92255 96802', icon: 'ðŸ“ž' },
           ].map(item => (
             <div key={item.label} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
               <div style={{ fontSize: '1.5rem', lineHeight: 1 }}>{item.icon}</div>

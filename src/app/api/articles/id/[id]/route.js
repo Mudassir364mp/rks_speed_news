@@ -54,3 +54,18 @@ export async function PUT(request, { params }) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+
+export async function DELETE(request, { params }) {
+    try {
+        await dbConnect();
+        const { id } = await params;
+        const deleted = await Article.findByIdAndDelete(id);
+        if (!deleted) {
+            return NextResponse.json({ error: 'Article not found' }, { status: 404 });
+        }
+        return NextResponse.json({ success: true, message: 'Article deleted successfully' });
+    } catch (error) {
+        console.error('DELETE article error:', error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}

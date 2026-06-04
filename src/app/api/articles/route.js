@@ -1,4 +1,4 @@
-import dbConnect from '@/lib/mongoose';
+﻿import dbConnect from '@/lib/mongoose';
 import Article from '@/models/Article';
 import { getArticles } from '@/lib/db';
 
@@ -8,14 +8,11 @@ export async function GET(request) {
   const isBreaking = searchParams.get('breaking');
 
   try {
-    let articles = await getArticles();
-
-    if (categoryId) {
-      articles = articles.filter(a => String(a.categoryId) === String(categoryId));
-    }
-    if (isBreaking === 'true') {
-      articles = articles.filter(a => a.isBreaking);
-    }
+    await dbConnect();
+    const query = {};
+    if (categoryId) query.categoryId = categoryId;
+    if (isBreaking === 'true') query.isBreaking = true;
+    const articles = await Article.find(query).sort({ publishedAt: -1 }).limit(50).lean();
 
     return Response.json(articles, {
       headers: { 'Cache-Control': 'no-store' },
@@ -31,7 +28,7 @@ export async function POST(request) {
     await dbConnect();
     const data = await request.json();
 
-    // âœ… SEEDHA MONGO MEIN SAVE â€” deleteMany nahi
+    // Ã¢Å“â€¦ SEEDHA MONGO MEIN SAVE Ã¢â‚¬â€ deleteMany nahi
     const newArticle = new Article({
       title: data.title || '',
       slug: data.slug || '',
@@ -55,3 +52,4 @@ export async function POST(request) {
     return Response.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+

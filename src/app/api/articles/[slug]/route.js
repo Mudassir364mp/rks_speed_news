@@ -1,24 +1,32 @@
-import { getArticles } from '@/lib/db';
 import dbConnect from '@/lib/mongoose';
 import Article from '@/models/Article';
 
 export async function GET(request, { params }) {
   const { slug } = await params;
 
-  // ✅ await lagaya
-  const articles = await getArticles();
-  const article = articles.find(a => a.slug === slug);
+  try {
+    await dbConnect();
 
-  if (!article) {
-    return Response.json({ error: 'Article not found' }, { status: 404 });
+    // Directly find by slug — fast & increments views
+    const article = await Article.findOneAndUpdate(
+      { slug },
+      { $inc: { views: 1 } },
+      { new: true, returnDocument: 'after' }
+    ).lean();
+
+    if (!article) {
+      return Response.json({ error: 'Article not found' }, { status: 404 });
+    }
+
+    return Response.json(article, {
+      headers: { 'Cache-Control': 'no-store' },
+    });
+  } catch (error) {
+    console.error('GET article error:', error);
+    return Response.json({ error: error.message }, { status: 500 });
   }
-
-  return Response.json(article, {
-    headers: { 'Cache-Control': 'no-store' },
-  });
 }
 
-// ✅ DELETE route add kiya — admin panel se delete karne ke liye
 export async function DELETE(request, { params }) {
   const { slug } = await params;
   try {

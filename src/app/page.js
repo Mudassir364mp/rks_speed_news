@@ -52,7 +52,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="container hero-grid" style={{ marginBottom: '4rem' }}>
         {topArticle ? (
-          <div style={{ position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden', aspectRatio: '16/9', width: '100%' }}>
+          <div style={{ position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden', aspectRatio: '4/3', width: '100%' }}>
             <img src={topArticle.imageUrl || null} alt={topArticle.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.85) 60%, transparent)', padding: '1rem 1.25rem 1.25rem', color: 'white' }}>
               <span className="badge" style={{ marginBottom: '1rem' }}>

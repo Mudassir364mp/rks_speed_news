@@ -22,7 +22,7 @@ export default function AdminSettings() {
   }, []);
 
   const handleSave = (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     localStorage.setItem('rks_settings', JSON.stringify(settings));
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
@@ -89,7 +89,7 @@ export default function AdminSettings() {
         </div>
 
         <div>
-          <button type="submit" style={{ padding: '0.875rem 3rem', backgroundColor: '#ef4444', color: 'white', borderRadius: '0.5rem', fontWeight: 700, fontSize: '1rem' }}>
+          <button type="button" onClick={handleSave} style={{ padding: '0.875rem 3rem', backgroundColor: '#ef4444', color: 'white', borderRadius: '0.5rem', fontWeight: 700, fontSize: '1rem' }}>
             Save Settings
           </button>
         </div>

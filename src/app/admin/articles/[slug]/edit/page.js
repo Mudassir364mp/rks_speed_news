@@ -9,7 +9,7 @@ const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
 export default function EditArticlePage() {
     const router = useRouter();
-    const { id } = useParams();
+    const { slug } = useParams();
     const fileInputRef = useRef(null);
 
     const [form, setForm] = useState({
@@ -27,14 +27,15 @@ export default function EditArticlePage() {
         const fetchData = async () => {
             try {
                 const [articleRes, catRes] = await Promise.all([
-                    fetch(`/api/articles/id/${id}`),
+                    fetch(`/api/articles/${slug}`),
                     fetch('/api/categories'),
                 ]);
                 const articleData = await articleRes.json();
                 const catData = await catRes.json();
 
-                if (articleData.article) {
-                    const a = articleData.article;
+                const articleObj = articleData.article || articleData;
+                if (articleObj && articleObj.title) {
+                    const a = articleObj;
                     setForm({
                         title: a.title || '',
                         excerpt: a.excerpt || '',
@@ -51,8 +52,8 @@ export default function EditArticlePage() {
             }
             setLoading(false);
         };
-        if (id) fetchData();
-    }, [id]);
+        if (slug) fetchData();
+    }, [slug]);
 
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
@@ -76,7 +77,7 @@ export default function EditArticlePage() {
         setSaving(true);
         setError('');
         try {
-            const res = await fetch(`/api/articles/id/${id}`, {
+            const res = await fetch(`/api/articles/${slug}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(form),

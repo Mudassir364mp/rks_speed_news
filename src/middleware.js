@@ -9,6 +9,7 @@ const secret = new TextEncoder().encode(
 const PUBLIC_GET_ROUTES = [
   '/api/articles',
   '/api/upload',
+  '/api/articles/id',
   '/api/breaking',
   '/api/categories',
   '/api/ads',
@@ -57,6 +58,7 @@ export async function middleware(request) {
 export const config = {
   matcher: ['/api/:path*'],
 };
+
 
 
 

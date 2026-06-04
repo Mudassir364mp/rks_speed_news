@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useEffect } from 'react';
 import { Edit, Trash2, Plus, Eye } from 'lucide-react';
 import Link from 'next/link';
@@ -91,7 +91,10 @@ export default function AdminArticles() {
                   <td style={{ padding: '1rem', color: '#4b5563', fontSize: '0.875rem' }}>{new Date(article.publishedAt).toLocaleDateString()}</td>
                   <td style={{ padding: '1rem', textAlign: 'right' }}>
                     <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
-                      <Link href={`/article/${article.slug}`} target="_blank" style={{ color: '#3b82f6' }}>
+                      <Link href={`/admin/articles/${article._id}/edit`} style={{ color: "#10b981" }}>
+                        <Edit size={18} />
+                      </Link>
+                      <Link href={`/article/${article.slug}`} target="_blank" style={{ color: "#3b82f6" }}>
                         <Eye size={18} />
                       </Link>
                       <button onClick={() => handleDelete(article)} style={{ color: '#ef4444', cursor: 'pointer' }}>
@@ -115,3 +118,4 @@ export default function AdminArticles() {
     </div>
   );
 }
+

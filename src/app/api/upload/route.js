@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
@@ -32,7 +32,11 @@ export async function POST(request) {
             cloudinary.uploader.upload_stream(
                 {
                     folder: 'rks-speed-news',
-                    resource_type: 'image',
+        resource_type: 'image',
+        transformation: [
+          { width: 1200, height: 630, crop: 'fill', gravity: 'auto' },
+          { quality: 'auto', fetch_format: 'auto' },
+        ],
                 },
                 (error, result) => {
                     if (error) reject(error);

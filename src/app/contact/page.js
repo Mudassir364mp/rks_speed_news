@@ -25,13 +25,10 @@ export default function ContactPage() {
         {/* Contact Info */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {[
-            { label: 'Editorial Office', value: 'editorial@rksspeed.news', icon: 'âœ‰' },
-            { label: 'Advertising', value: 'ads@rksspeed.news', icon: 'ðŸ“¢' },
-            { label: 'Press & Media', value: 'press@rksspeed.news', icon: 'ðŸ“°' },
-            { label: 'Support', value: '+91 92255 96802', icon: 'ðŸ“ž' },
+            { label: 'Press & Media', value: 'press@rksspeed.news' },
+            { label: 'Support', value: '+91 92255 96802' },
           ].map(item => (
             <div key={item.label} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-              <div style={{ fontSize: '1.5rem', lineHeight: 1 }}>{item.icon}</div>
               <div>
                 <div style={{ fontWeight: 700, marginBottom: '0.25rem' }}>{item.label}</div>
                 <div style={{ color: 'var(--color-primary)', fontWeight: 500 }}>{item.value}</div>
@@ -54,18 +51,18 @@ export default function ContactPage() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <label style={{ fontWeight: 600, fontSize: '0.875rem' }}>Full Name</label>
-                <input type="text" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required placeholder="John Doe"
+                <input type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required placeholder="John Doe"
                   style={{ padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <label style={{ fontWeight: 600, fontSize: '0.875rem' }}>Email Address</label>
-                <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} required placeholder="john@example.com"
+                <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required placeholder="john@example.com"
                   style={{ padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }} />
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{ fontWeight: 600, fontSize: '0.875rem' }}>Subject</label>
-              <select value={form.subject} onChange={e => setForm({...form, subject: e.target.value})} required
+              <select value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value })} required
                 style={{ padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }}>
                 <option value="">Select a subject...</option>
                 <option value="news-tip">News Tip</option>
@@ -77,7 +74,7 @@ export default function ContactPage() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{ fontWeight: 600, fontSize: '0.875rem' }}>Message</label>
-              <textarea value={form.message} onChange={e => setForm({...form, message: e.target.value})} required placeholder="Write your message here..." rows={6}
+              <textarea value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required placeholder="Write your message here..." rows={6}
                 style={{ padding: '0.75rem 1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'inherit', resize: 'vertical' }} />
             </div>
             <button type="submit" className="btn btn-primary" style={{ padding: '0.875rem', fontSize: '1rem', borderRadius: 'var(--radius-md)' }}>

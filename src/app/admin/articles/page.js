@@ -35,7 +35,7 @@ export default function AdminArticles() {
 
     try {
             
-      const res = await fetch(`/api/articles/${id}`, {
+      const res = await fetch(`/api/articles/${slug}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -122,6 +122,8 @@ export default function AdminArticles() {
     </div>
   );
 }
+
+
 
 
 

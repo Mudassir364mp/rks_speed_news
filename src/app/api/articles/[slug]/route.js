@@ -42,3 +42,39 @@ export async function DELETE(request, { params }) {
     return Response.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+export async function PUT(request, { params }) {
+  const { slug } = await params;
+  try {
+    await dbConnect();
+    const body = await request.json();
+    const { title, excerpt, content, category, author, imageUrl, status } = body;
+
+    if (!title || !excerpt || !content || !author) {
+      return Response.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    const updated = await Article.findOneAndUpdate(
+      { slug },
+      {
+        title,
+        excerpt,
+        content,
+        categoryId: category,
+        author,
+        imageUrl,
+        status,
+        updatedAt: new Date(),
+      },
+      { new: true, runValidators: true }
+    );
+
+    if (!updated) {
+      return Response.json({ error: 'Article not found' }, { status: 404 });
+    }
+
+    return Response.json({ success: true, article: updated });
+  } catch (error) {
+    console.error('PUT article error:', error);
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+}

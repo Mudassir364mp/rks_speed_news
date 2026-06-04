@@ -54,11 +54,11 @@ export default function Home() {
         {topArticle ? (
           <div style={{ position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden', aspectRatio: '16/9', width: '100%' }}>
             <img src={topArticle.imageUrl || null} alt={topArticle.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)', padding: '2rem', color: 'white' }}>
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)', padding: '1rem 1.25rem 1.25rem', color: 'white' }}>
               <span className="badge" style={{ marginBottom: '1rem' }}>
                 {categories.find(c => String(c.id) === String(topArticle.categoryId))?.name || 'News'}
               </span>
-              <h1 className="heading-serif" style={{ fontSize: '2.5rem', marginBottom: '0.5rem', lineHeight: 1.2 }}>
+              <h1 className="heading-serif" style={{ fontSize: 'clamp(1.1rem, 3vw, 2.5rem)', marginBottom: '0.5rem', lineHeight: 1.2 }}>
                 <Link href={`/article/${topArticle.slug}`} className="hover:underline">
                   {topArticle.title}
                 </Link>

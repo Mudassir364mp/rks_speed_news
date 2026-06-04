@@ -1,4 +1,4 @@
-import { Inter, Playfair_Display } from "next/font/google";
+﻿import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -9,6 +9,10 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
 
 export const metadata = {
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   title: "RKS Speed News | Fast and Accurate",
   description: "Your trusted source for national and global breaking news.",
 };
@@ -32,4 +36,5 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
 

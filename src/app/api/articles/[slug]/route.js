@@ -3,26 +3,28 @@ import Article from '@/models/Article';
 
 export async function GET(request, { params }) {
   const { slug } = await params;
-
+  const { searchParams } = new URL(request.url);
+  const countView = searchParams.get("view") === "1";
   try {
     await dbConnect();
-
-    // Directly find by slug — fast & increments views
-    const article = await Article.findOneAndUpdate(
-      { slug },
-      { $inc: { views: 1 } },
-      { new: true, returnDocument: 'after' }
-    ).lean();
-
-    if (!article) {
-      return Response.json({ error: 'Article not found' }, { status: 404 });
+    let article;
+    if (countView) {
+      article = await Article.findOneAndUpdate(
+        { slug },
+        { $inc: { views: 1 } },
+        { new: true, returnDocument: "after" }
+      ).lean();
+    } else {
+      article = await Article.findOne({ slug }).lean();
     }
-
+    if (!article) {
+      return Response.json({ error: "Article not found" }, { status: 404 });
+    }
     return Response.json(article, {
-      headers: { 'Cache-Control': 'no-store' },
+      headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
-    console.error('GET article error:', error);
+    console.error("GET article error:", error);
     return Response.json({ error: error.message }, { status: 500 });
   }
 }

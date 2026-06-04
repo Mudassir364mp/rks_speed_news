@@ -8,7 +8,7 @@ export default function AboutPage() {
         <span className="badge" style={{ marginBottom: '1rem', display: 'inline-block' }}>About Us</span>
         <h1 className="heading-serif" style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1rem' }}>Who We Are</h1>
         <p style={{ fontSize: '1.25rem', color: 'var(--color-text-muted)', lineHeight: 1.8 }}>
-          RKS Speed News is a national digital media platform committed to delivering fast, accurate, and unbiased news coverage across India and the world.
+          RKS Speed News is a digital media platform committed to delivering fast, accurate, and unbiased news.
         </p>
       </div>
 

@@ -137,7 +137,11 @@ export default function ArticlePage() {
     async function loadArticle() {
       if (!slug) return;
       try {
-        const res = await fetch(`/api/articles/${slug}`);
+        const viewedKey = `viewed_${slug}`;
+        const alreadyViewed = sessionStorage.getItem(viewedKey);
+        const viewParam = alreadyViewed ? "" : "?view=1";
+        const res = await fetch(`/api/articles/${slug}${viewParam}`);
+        if (!alreadyViewed) sessionStorage.setItem(viewedKey, "1");
         if (!res.ok) throw new Error('Not found');
         const art = await res.json();
         

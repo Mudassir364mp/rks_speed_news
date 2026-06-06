@@ -1,4 +1,4 @@
-import dbConnect from '@/lib/mongoose';
+﻿import dbConnect from '@/lib/mongoose';
 import Article from '@/models/Article';
 import Category from '@/models/Category';
 
@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export default async function sitemap() {
   await dbConnect();
 
-  const articles = await Article.find({ status: 'published' })
+  const articles = await Article.find({})
     .select('slug updatedAt publishedAt')
     .lean();
 

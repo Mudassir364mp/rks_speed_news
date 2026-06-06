@@ -1,11 +1,10 @@
 ﻿import { NextResponse } from 'next/server';
-import { jwtVerify } from 'jose';
+import { jwtVerify, SignJWT } from 'jose';
 
 const secret = new TextEncoder().encode(
   process.env.ADMIN_JWT_SECRET || 'fallback_secret_change_me_in_production'
 );
 
-// Public GET routes Ã¢â‚¬â€ koi bhi read kar sakta hai
 const PUBLIC_GET_ROUTES = [
   '/api/articles',
   '/api/upload',
@@ -16,21 +15,18 @@ const PUBLIC_GET_ROUTES = [
 ];
 
 export async function middleware(request) {
-  const { pathname, method } = request.nextUrl;
+  const { pathname } = request.nextUrl;
   const reqMethod = request.method;
 
-  // 1. Login/Logout hamesha public
   if (pathname === '/api/admin/login' || pathname === '/api/admin/logout') {
     return NextResponse.next();
   }
 
-  // 2. Public GET routes Ã¢â‚¬â€ token ki zaroorat nahi
   const isPublicGet = PUBLIC_GET_ROUTES.some(route => pathname.startsWith(route));
   if (isPublicGet && reqMethod === 'GET') {
     return NextResponse.next();
   }
 
-  // 3. Baaki sab (POST, PUT, DELETE aur /api/admin/*) Ã¢â‚¬â€ token chahiye
   if (pathname.startsWith('/api')) {
     const token = request.cookies.get('rks_admin_token')?.value;
 
@@ -42,8 +38,29 @@ export async function middleware(request) {
     }
 
     try {
-      await jwtVerify(token, secret);
-      return NextResponse.next();
+      const { payload } = await jwtVerify(token, secret);
+      const response = NextResponse.next();
+
+      // Auto-refresh — agar 30 min se kam bacha hai toh renew karo
+      const exp = payload.exp;
+      const now = Math.floor(Date.now() / 1000);
+      if (exp && exp - now < 30 * 60) {
+        const newToken = await new SignJWT({ ...payload })
+          .setProtectedHeader({ alg: 'HS256' })
+          .setIssuedAt()
+          .setExpirationTime('2h')
+          .sign(secret);
+
+        response.cookies.set('rks_admin_token', newToken, {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'none',
+          maxAge: 7 * 24 * 60 * 60,
+          path: '/',
+        });
+      }
+
+      return response;
     } catch (err) {
       return NextResponse.json(
         { error: 'Unauthorized: Invalid or expired token' },
@@ -58,7 +75,3 @@ export async function middleware(request) {
 export const config = {
   matcher: ['/api/:path*'],
 };
-
-
-
-

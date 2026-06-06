@@ -265,11 +265,6 @@ export default function AdminLoginPage() {
             @keyframes spin { to { transform: rotate(360deg); } }
           `}</style>
         </div>
-
-                    ))}
-          </div>
-        </div>
-
         {/* Footer text */}
         <p style={{ textAlign: 'center', color: '#1e293b', fontSize: '0.75rem', marginTop: '1.5rem' }}>
           RKS Speed News CMS &bull; All rights reserved &bull; {new Date().getFullYear()}
@@ -278,6 +273,7 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+
 
 
 

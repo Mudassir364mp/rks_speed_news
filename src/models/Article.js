@@ -1,15 +1,16 @@
-import mongoose from 'mongoose';
+﻿import mongoose from 'mongoose';
 
 const ArticleSchema = new mongoose.Schema({
   title: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
   excerpt: { type: String, default: '' },
-  content: { type: String, default: '' },  // âœ… required hata diya â€” editor se content late waqt empty aa sakta tha
+  content: { type: String, default: '' },  // Ã¢Å“â€¦ required hata diya Ã¢â‚¬â€ editor se content late waqt empty aa sakta tha
   categoryId: { type: String, default: '' },
   author: { type: String, default: '' },
   imageUrl: { type: String, default: '' },
   isBreaking: { type: Boolean, default: false },
   publishedAt: { type: Date, default: Date.now },
+  status: { type: String, default: "published", enum: ["published", "draft"] },
   views: { type: Number, default: 0 },
 }, {
   timestamps: true,
@@ -18,3 +19,4 @@ const ArticleSchema = new mongoose.Schema({
 });
 
 export default mongoose.models.Article || mongoose.model('Article', ArticleSchema);
+

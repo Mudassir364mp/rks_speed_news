@@ -191,7 +191,7 @@ export default function AdminLoginPage() {
                   onChange={e => setForm({ ...form, password: e.target.value })}
                   required
                   disabled={loading || attempts.locked}
-                  placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢"
+                  placeholder="••••••••••••"
                   style={{
                     width: '100%',
                     padding: '0.875rem 3rem 0.875rem 1rem',
@@ -266,29 +266,7 @@ export default function AdminLoginPage() {
           `}</style>
         </div>
 
-        {/* Credentials reference */}
-        <div style={{
-          marginTop: '1.5rem',
-          backgroundColor: 'rgba(255,255,255,0.02)',
-          border: '1px solid rgba(255,255,255,0.06)',
-          borderRadius: '0.875rem',
-          padding: '1.125rem 1.5rem',
-        }}>
-          <p style={{ color: '#475569', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.75rem' }}>
-            Demo Credentials
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-            {[
-              ['Super Admin', 'admin@rksspeed.news', 'SuperAdmin@2024!'],
-              ['Editor', 'editor@rksspeed.news', 'Editor@2024!'],
-              ['Reporter', 'reporter@rksspeed.news', 'Reporter@2024!'],
-            ].map(([role, email, pass]) => (
-              <div key={role} style={{ display: 'flex', gap: '0.75rem', fontSize: '0.8rem', color: '#64748b', flexWrap: 'wrap' }}>
-                <span style={{ color: '#94a3b8', fontWeight: 600, minWidth: '110px' }}>{role}:</span>
-                <span style={{ fontFamily: 'monospace' }}>{email}</span>
-                <span style={{ color: '#475569' }}>/ {pass}</span>
-              </div>
-            ))}
+                    ))}
           </div>
         </div>
 
@@ -300,6 +278,10 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+
+
+
+
 
 
 

@@ -1,4 +1,4 @@
-'use client';
+ï»¿'use client';
 import Link from 'next/link';
 export default function AboutPage() {
   return (
@@ -29,25 +29,17 @@ export default function AboutPage() {
             Every story published on RKS Speed News is verified through at least two independent sources before publication. We follow a strict editorial code of conduct and are committed to corrections and transparency when errors occur.
           </p>
         </section>
-
-        {/* PathanX Industry Section */}
         <section style={{ borderLeft: '4px solid var(--color-primary)', paddingLeft: '1.5rem' }}>
           <h2 className="heading-serif" style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '1rem' }}>Developed By</h2>
           <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.8 }}>
-            This website has been designed and developed by{' '}
-            <a href="https://pathanx.vercel.app/" target="_blank" rel="noopener noreferrer"
-              style={{ color: 'var(--color-primary)', fontWeight: 700, textDecoration: 'underline' }}>
-              PathanX Industry
-            </a>
-            {' '}— a passionate team of developers building modern and powerful web solutions.
+            This website has been designed and developed by PathanX Industry - a passionate team of developers building modern and powerful web solutions.
           </p>
           <a href="https://pathanx.vercel.app/" target="_blank" rel="noopener noreferrer"
             className="btn btn-primary"
             style={{ display: 'inline-block', padding: '0.6rem 1.5rem', marginTop: '1rem', fontSize: '0.95rem' }}>
-            Visit PathanX Industry ?
+            Visit PathanX Industry
           </a>
         </section>
-
         <section style={{ backgroundColor: 'var(--color-bg-alt)', borderRadius: 'var(--radius-lg)', padding: '2rem', textAlign: 'center' }}>
           <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1rem' }}>Get In Touch</h3>
           <p style={{ color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>Have a news tip, feedback, or partnership inquiry?</p>

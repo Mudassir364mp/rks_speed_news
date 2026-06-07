@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { getItems, addItem } from '@/lib/store';
 import { formatRelativeTime } from '@/lib/utils';
+import AdSense from '@/components/AdSense';
 
 function ShareButtons({ article }) {
   const [copied, setCopied] = useState(false);
@@ -42,7 +43,7 @@ function ShareButtons({ article }) {
         {shareButtons.map(btn => (
           <button key={btn.id} onClick={() => share(btn.id)}
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', borderRadius: 'var(--radius-md)', fontWeight: 600, fontSize: '0.875rem', backgroundColor: btn.bg, color: btn.color, transition: 'opacity 0.2s' }}
-            onMouseEnter={e => e.currentTarget.style.opacity='0.8'} onMouseLeave={e => e.currentTarget.style.opacity='1'}>
+            onMouseEnter={e => e.currentTarget.style.opacity = '0.8'} onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
             {btn.label}
           </button>
         ))}
@@ -103,18 +104,18 @@ function CommentSection({ articleSlug }) {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
                 <label style={{ fontSize: '0.875rem', fontWeight: 600 }}>Name *</label>
-                <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} placeholder="Your name"
+                <input type="text" required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Your name"
                   style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
                 <label style={{ fontSize: '0.875rem', fontWeight: 600 }}>Email *</label>
-                <input type="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})} placeholder="your@email.com"
+                <input type="email" required value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="your@email.com"
                   style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }} />
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
               <label style={{ fontSize: '0.875rem', fontWeight: 600 }}>Comment *</label>
-              <textarea required value={form.message} onChange={e => setForm({...form, message: e.target.value})} rows={4} placeholder="Share your thoughts..."
+              <textarea required value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} rows={4} placeholder="Share your thoughts..."
                 style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: 'inherit', resize: 'vertical' }} />
             </div>
             <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start', padding: '0.75rem 2rem' }}>
@@ -147,20 +148,13 @@ export default function ArticlePage() {
         if (shouldCount) localStorage.setItem(viewedKey, now.toString());
         if (!res.ok) throw new Error('Not found');
         const art = await res.json();
-        
         setArticle(art);
-        
-        // Fetch categories to find the name
         const catRes = await fetch('/api/categories');
         const categories = await catRes.json();
         setCategory(categories.find(c => String(c.id) === String(art.categoryId)));
-        
-        // Fetch related articles
         const relatedRes = await fetch(`/api/articles?category=${art.categoryId}`);
         const related = await relatedRes.json();
         setRelatedArticles(related.filter(a => a.id !== art.id).slice(0, 3));
-        
-        // Note: Views increment logic needs an API endpoint, omitting for now
       } catch (error) {
         console.error('Error loading article:', error);
       }
@@ -176,9 +170,7 @@ export default function ArticlePage() {
 
   return (
     <div className="container article-layout" style={{ padding: '3rem 1rem' }}>
-      {/* Main Content */}
       <article>
-        {/* Breadcrumbs */}
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', fontSize: '0.875rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>
           <Link href="/">Home</Link>
           <span>/</span>
@@ -187,7 +179,6 @@ export default function ArticlePage() {
           <span style={{ color: 'var(--color-text)', display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{article.title}</span>
         </div>
 
-        {/* Breaking badge */}
         {article.isBreaking && (
           <div style={{ display: 'inline-block', marginBottom: '1rem' }}>
             <span style={{ backgroundColor: '#ef4444', color: 'white', padding: '0.25rem 0.75rem', borderRadius: '0.25rem', fontWeight: 700, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', animation: 'pulse 2s infinite' }}>
@@ -199,7 +190,6 @@ export default function ArticlePage() {
         <h1 className="heading-serif" style={{ fontSize: '2.75rem', lineHeight: 1.2, marginBottom: '1.25rem' }}>{article.title}</h1>
         <p style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)', marginBottom: '2rem', lineHeight: 1.6 }}>{article.excerpt}</p>
 
-        {/* Meta */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)', padding: '1rem 0', marginBottom: '2rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ width: '42px', height: '42px', borderRadius: '50%', backgroundColor: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700, fontSize: '1.25rem', flexShrink: 0 }}>
@@ -217,24 +207,26 @@ export default function ArticlePage() {
           )}
         </div>
 
-        {/* Featured Image */}
         <div style={{ marginBottom: '2.5rem', borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
           <img src={article.imageUrl} alt={article.title} style={{ width: '100%', maxHeight: '550px', objectFit: 'cover' }} />
         </div>
 
-        {/* Content */}
         <div style={{ fontSize: '1.1rem', lineHeight: 1.9, color: 'var(--color-text)' }}
           dangerouslySetInnerHTML={{ __html: article.content }} />
 
-        {/* Share Buttons */}
-        <ShareButtons article={article} />
+        {/* Ad Article ke Neeche */}
+        <div style={{ margin: '2rem 0' }}>
+          <AdSense />
+        </div>
 
-        {/* Comments */}
+        <ShareButtons article={article} />
         <CommentSection articleSlug={article.slug} />
       </article>
 
       {/* Sidebar */}
       <aside style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+
+        {/* 300x250 - Aapki Khud Ki Ad */}
         <div className="ad-placeholder" style={{ height: '250px' }}>
           <span>Advertisement (300×250)</span>
         </div>
@@ -250,8 +242,8 @@ export default function ArticlePage() {
                   <Link href={`/article/${rel.slug}`}>
                     <div style={{ width: '100%', height: '130px', borderRadius: 'var(--radius-md)', overflow: 'hidden', marginBottom: '0.5rem' }}>
                       <img src={rel.imageUrl} alt={rel.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }}
-                        onMouseEnter={e => e.currentTarget.style.transform='scale(1.05)'}
-                        onMouseLeave={e => e.currentTarget.style.transform='scale(1)'} />
+                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'} />
                     </div>
                     <h4 style={{ fontWeight: 600, lineHeight: 1.3, fontSize: '0.9rem' }}>{rel.title}</h4>
                     <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '0.25rem' }}>{formatRelativeTime(rel.publishedAt)}</div>
@@ -262,9 +254,12 @@ export default function ArticlePage() {
           </div>
         )}
 
-        <div className="ad-placeholder" style={{ height: '600px' }}>
-          <span>Advertisement (300×600)</span>
+        {/* 300x600 - 2 AdSense Ads */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <AdSense />
+          <AdSense />
         </div>
+
       </aside>
     </div>
   );

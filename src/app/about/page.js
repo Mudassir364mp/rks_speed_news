@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-
 export default function AboutPage() {
   return (
     <div className="container" style={{ padding: '4rem 1rem', maxWidth: '800px' }}>
@@ -11,7 +10,6 @@ export default function AboutPage() {
           RKS Speed News is a digital media platform committed to delivering fast, accurate, and unbiased news.
         </p>
       </div>
-
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         <section style={{ borderLeft: '4px solid var(--color-primary)', paddingLeft: '1.5rem' }}>
           <h2 className="heading-serif" style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '1rem' }}>Our Mission</h2>
@@ -19,19 +17,35 @@ export default function AboutPage() {
             Our mission is to empower citizens with reliable and timely information. We believe that an informed public is the foundation of a healthy democracy. RKS Speed News strives to uphold the highest journalistic standards, bringing news that matters to your doorstep instantly.
           </p>
         </section>
-
         <section style={{ borderLeft: '4px solid var(--color-primary)', paddingLeft: '1.5rem' }}>
           <h2 className="heading-serif" style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '1rem' }}>Our Team</h2>
           <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.8 }}>
             We are a diverse team of journalists, editors, analysts, and digital media professionals with decades of combined experience. Our reporters work around the clock across all major cities and regions to ensure you never miss a critical update.
           </p>
         </section>
-
         <section style={{ borderLeft: '4px solid var(--color-primary)', paddingLeft: '1.5rem' }}>
           <h2 className="heading-serif" style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '1rem' }}>Editorial Standards</h2>
           <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.8 }}>
             Every story published on RKS Speed News is verified through at least two independent sources before publication. We follow a strict editorial code of conduct and are committed to corrections and transparency when errors occur.
           </p>
+        </section>
+
+        {/* PathanX Industry Section */}
+        <section style={{ borderLeft: '4px solid var(--color-primary)', paddingLeft: '1.5rem' }}>
+          <h2 className="heading-serif" style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '1rem' }}>Developed By</h2>
+          <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.8 }}>
+            This website has been designed and developed by{' '}
+            <a href="https://pathanx.vercel.app/" target="_blank" rel="noopener noreferrer"
+              style={{ color: 'var(--color-primary)', fontWeight: 700, textDecoration: 'underline' }}>
+              PathanX Industry
+            </a>
+            {' '}— a passionate team of developers building modern and powerful web solutions.
+          </p>
+          <a href="https://pathanx.vercel.app/" target="_blank" rel="noopener noreferrer"
+            className="btn btn-primary"
+            style={{ display: 'inline-block', padding: '0.6rem 1.5rem', marginTop: '1rem', fontSize: '0.95rem' }}>
+            Visit PathanX Industry ?
+          </a>
         </section>
 
         <section style={{ backgroundColor: 'var(--color-bg-alt)', borderRadius: 'var(--radius-lg)', padding: '2rem', textAlign: 'center' }}>
@@ -43,4 +57,3 @@ export default function AboutPage() {
     </div>
   );
 }
-

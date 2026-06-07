@@ -108,9 +108,10 @@ export default function Footer() {
       {/* Copyright Bar */}
       <div className="container" style={{ borderTop: '1px solid var(--color-border)', paddingTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--color-text-light)', fontSize: '0.8rem', flexWrap: 'wrap', gap: '0.5rem' }}>
         <p>&copy; {new Date().getFullYear()} RKS Speed News. All rights reserved.</p>
-        <p>Built with passion for journalism.</p>
+        <p>Built with passion for journalism. | Developed by <a href="https://pathanx.vercel.app/" target="_blank" rel="noopener" style="color:var(--color-primary);fontWeight:700;">PathanX Industry</a></p>
       </div>
     </footer>
   );
 }
+
 

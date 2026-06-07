@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -24,7 +24,6 @@ export default function Footer() {
 
   return (
     <footer style={{ backgroundColor: 'var(--color-bg-alt)', borderTop: '1px solid var(--color-border)', paddingTop: '4rem', paddingBottom: '2rem', marginTop: '5rem' }}>
-      {/* Newsletter Band */}
       <div style={{ backgroundColor: 'var(--color-primary)', color: 'white', padding: '2.5rem 0', marginBottom: '4rem' }}>
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
           <div>
@@ -33,7 +32,7 @@ export default function Footer() {
           </div>
           {subscribed ? (
             <div style={{ backgroundColor: 'rgba(255,255,255,0.2)', padding: '1rem 2rem', borderRadius: 'var(--radius-md)', fontWeight: 600 }}>
-              âœ“ Thank you for subscribing!
+              Thank you for subscribing!
             </div>
           ) : (
             <form onSubmit={handleSubscribe} className="newsletter-form">
@@ -47,9 +46,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Main Footer Grid */}
       <div className="container footer-grid" style={{ marginBottom: '3rem' }}>
-        {/* Brand Column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
             <span style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--color-primary)', letterSpacing: '-0.025em' }}>RKS </span>
@@ -74,7 +71,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Categories */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           <h4 style={{ fontWeight: 700, marginBottom: '0.25rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)' }}>Categories</h4>
           {['Politics', 'Business', 'Technology', 'Sports', 'Entertainment'].map(cat => (
@@ -84,7 +80,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Company */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           <h4 style={{ fontWeight: 700, marginBottom: '0.25rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)' }}>Company</h4>
           {[['About Us', '/about'], ['Contact', '/contact'], ['Advertise', '/advertise'], ['Careers', '/careers']].map(([label, href]) => (
@@ -94,7 +89,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Legal */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           <h4 style={{ fontWeight: 700, marginBottom: '0.25rem', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)' }}>Legal</h4>
           {[['Privacy Policy', '/privacy-policy'], ['Terms & Conditions', '/terms']].map(([label, href]) => (
@@ -105,13 +99,10 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Copyright Bar */}
       <div className="container" style={{ borderTop: '1px solid var(--color-border)', paddingTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--color-text-light)', fontSize: '0.8rem', flexWrap: 'wrap', gap: '0.5rem' }}>
         <p>&copy; {new Date().getFullYear()} RKS Speed News. All rights reserved.</p>
-        <p>Built with passion for journalism. | Developed by <a href="https://pathanx.vercel.app/" target="_blank" rel="noopener" style="color:var(--color-primary);fontWeight:700;">PathanX Industry</a></p>
+        <p>Built with passion for journalism. | Developed by <a href="https://pathanx.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)', fontWeight: 700 }}>PathanX Industry</a></p>
       </div>
     </footer>
   );
 }
-
-
